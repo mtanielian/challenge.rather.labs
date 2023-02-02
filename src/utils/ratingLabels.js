@@ -1,4 +1,5 @@
 export const ratingLabels = {
+  0: 'Beginner',
   0.5: 'Beginner',
   1: 'Beginner',
   1.5: 'Beginner',

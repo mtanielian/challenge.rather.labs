@@ -7,15 +7,15 @@ import { login } from '../services/user.services'
 
 const useFormLogin = () => {
   const { auth, setLogged } = useContext(AuthContext)
-
+  const { handleSubmit, register, formState: { errors } } = useForm()
+  const router = useRouter()
+  
   useEffect(() => {
     if (auth.isLogged) {
       router.push('/')
     }
   }, [auth])
 
-  const { handleSubmit, register, formState: { errors } } = useForm()
-  const router = useRouter()
   
   const loginUserWithPass = async (data) => {
     const {email, password} = data

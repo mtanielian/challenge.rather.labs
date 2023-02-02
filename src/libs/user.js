@@ -25,7 +25,7 @@ export const loginUser = async ({ email, password }) => {
 }
 
 
-export const registerUser = async ({ email, password, name, lastName, role, birthDate, gender }) => {
+export const registerUser = async ({ email, password, name, lastName, role = 'student', birthDate, gender }) => {
   try {
     await connectDB()
     const user = new UserModel({ 
@@ -51,16 +51,16 @@ export const registerUser = async ({ email, password, name, lastName, role, birt
 }
 
 
-export const getUsers = async () => {
+export const getUsersByRole = async (role) => {
   try {
     await connectDB()
-    const users = await UserModel.find().select('-password').lean()
+    const users = await UserModel.find({role}).select('-password').lean()
     await disconnectDB()
 
     return serializeResponse(users)
 
   } catch (error) {
-    console.log('Error loginUser: ', error)
+    console.log('Error getUsersByRole: ', error)
     await disconnectDB()
     return null
   }
