@@ -1,6 +1,7 @@
-import { Grid } from '@mui/material'
 import MainLayout from '../../layouts/MainLayout'
 import FormLogin from '../../components/formLogin/FormLogin'
+import useValidateUser from '../../hooks/useValidateUser'
+import { Grid } from '@mui/material'
 
 const LoginPage = () => {
   return (
@@ -17,3 +18,19 @@ const LoginPage = () => {
 }
 
 export default LoginPage
+
+export const getServerSideProps = async (ctx) => {
+  const { validationResponse } = useValidateUser(ctx.req)
+  if (validationResponse.success) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+  
+  return {
+    props: {}
+  }
+}

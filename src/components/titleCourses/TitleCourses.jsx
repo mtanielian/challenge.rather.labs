@@ -1,10 +1,12 @@
-import { Button, Grid } from '@mui/material'
 import { useContext } from 'react'
+import { useRouter } from 'next/router'
 import { AuthContext } from '../../contexts/AuthContext'
+import { Button, Grid } from '@mui/material'
 
 
 const TitleCourses = ({ title = 'Courses Page'}) => {
   const { auth } = useContext(AuthContext)
+  const router = useRouter()
   return (
     <Grid container spacing={2} >
       <Grid item xs={8}>
@@ -12,7 +14,12 @@ const TitleCourses = ({ title = 'Courses Page'}) => {
       </Grid>
       {auth.isLogged && auth.user.role === 'admin' &&
         <Grid item xs={4} style={{alignSelf: 'center', textAlign: 'end'}}>
-          <Button variant="outlined" color="primary">+ Add Course</Button>
+          <Button 
+            onClick={() => router.push('/course/form')} 
+            variant="outlined" color="primary"
+          >
+            + Add Course
+          </Button>
         </Grid>
       }
     </Grid>

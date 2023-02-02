@@ -1,11 +1,12 @@
-import { Button, Card, CardActions, CardContent, Divider, Rating, Typography } from '@mui/material'
 import CoursePrices from './CoursePrices'
+import { formatDate } from '../../../utils/dateFormatter'
+import { Button, Card, CardActions, CardContent, Divider, Rating, Typography } from '@mui/material'
 
 
 const CourseListItem = ({ course }) => {
   const { name, description, level, levelText, duration, dateStart } = course
   return (
-    <Card sx={{maxWidth: 365}} >
+    <Card sx={{width: 365}} >
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {name} 
@@ -25,7 +26,7 @@ const CourseListItem = ({ course }) => {
           Duration: {duration} hours
         </Typography>
         <Typography variant="body2">
-          Start: {dateStart} 
+          Start: {formatDate(dateStart)}
         </Typography>
         <Divider sx={{marginY: 2}} />                
         <div style={{ display: 'flex', alignItems: 'center' }}>
