@@ -5,8 +5,9 @@ import LoadingSkeletonList from './components/LoadingListSkeleton'
 import EmptyListResult from './components/EmptyListResult'
 import { Grid } from '@mui/material'
 
+
 const CoursesList = () => {
-  const { coursesPages, totalCourses, fetchNextPage, hasNextPage, status } = useFetchCourses()
+  const { coursesPages, totalCourses = 0, fetchNextPage, hasNextPage, status } = useFetchCourses()
   
   return (
     <>

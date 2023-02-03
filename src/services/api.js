@@ -3,8 +3,7 @@ import axios from 'axios'
 class Api {
   constructor () {
     this.api = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
-      timeout: 1000
+      baseURL: process.env.NEXT_PUBLIC_API_URL
     })
   }
 

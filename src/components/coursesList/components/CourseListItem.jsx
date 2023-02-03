@@ -1,10 +1,12 @@
+import { useRouter } from 'next/router'
 import CoursePrices from './CoursePrices'
 import { formatDate } from '../../../utils/dateFormatter'
 import { Button, Card, CardActions, CardContent, Divider, Rating, Typography } from '@mui/material'
 
 
 const CourseListItem = ({ course }) => {
-  const { name, description, level, levelText, duration, dateStart } = course
+  const { _id, name, description, level, levelText, duration, dateStart } = course
+  const router = useRouter()
   return (
     <Card sx={{width: 365}} >
       <CardContent>
@@ -35,7 +37,10 @@ const CourseListItem = ({ course }) => {
         </div>              
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button 
+          size="small"
+          onClick={() => router.push(`/courses/${_id}`)}
+        >Details</Button>
       </CardActions>
     </Card>
   )

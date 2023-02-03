@@ -5,7 +5,6 @@ export const login = async ({ email, password }) => {
   return data
 }
 
-
 export const getUsersByRole = async (role) => {
   const {data} = await api.get(`/users/${role}`)
   return data

@@ -29,7 +29,7 @@ const createNewCourse = async (req, res) => {
 
 const retrieveCourses = async (req, res) => {
   const { limit = 10, page = 1 } = req.query
-  const { data, totalCourses } = await getCourses(limit, page)
+  const { courses, totalCourses } = await getCourses(limit, page)
   
-  return res.status(200).json({ courses: data, totalCourses })
+  return res.status(200).json({ courses, totalCourses })
 }

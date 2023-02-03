@@ -1,19 +1,24 @@
+import Head from 'next/head'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from '../contexts/AuthContext'
-import Head from 'next/head'
+import { CoursesProvider } from '../contexts/CoursesContext'
 import '../styles/globals.css'
 
 const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }) {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Head>
         <title>Challenge - Rather Labs</title>
       </Head>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <CoursesProvider>
+            <Component {...pageProps} />
+          </CoursesProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </>
   )
 }

@@ -31,12 +31,32 @@ export const getCourses = async (limit = 10, page = 1) => {
     await disconnectDB()
 
     return {
-      data: serializeResponse(courses),
+      courses: serializeResponse(courses),
       totalCourses,
     }
 
   } catch (error) {
     console.log('Error getCourses: ', error)
+    await disconnectDB()
+    throw Error('Internal error')
+  }
+}
+
+export const searchCourses = async (term) => {
+  try {
+    await connectDB()
+    const courses = await CourseModel
+      .find({name: new RegExp(term, 'i')})
+      .lean()
+    await disconnectDB()
+    
+    return {
+      courses: serializeResponse(courses),
+      totalCourses: courses.length,
+    }
+
+  } catch (error) {
+    console.log('Error searchCourses: ', error)
     await disconnectDB()
     throw Error('Internal error')
   }
