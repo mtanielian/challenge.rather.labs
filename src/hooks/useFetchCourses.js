@@ -1,29 +1,34 @@
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { getCourses } from '../services/course.services'
-import { useEffect, useState } from 'react'
+
 
 const useFetchCourses = () => {
-  const [courses, setCourses] = useState([])
-  const [totalCourses, setTotalCourses] = useState([])
+  const limit = 3
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status
+  } = useInfiniteQuery({
+    queryKey: ['listCourses'],
+    queryFn: ({ pageParam = 1 }) => getCourses(limit, pageParam),
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage && lastPage.totalCourses > pages.length * limit) {
+        return pages.length + 1
+      }
+      return undefined
+    },
+    keepPreviousData: true
+  })
 
-  const loadCourses = async () => {
-    try {
-      const { courses, totalCourses } = await getCourses(10, 1)
-      setTotalCourses(totalCourses)
-      setCourses(courses)
-      setCourses
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    loadCourses()
-  }, [])
-  
   return {
-    courses,
-    totalCourses 
+    coursesPages: data?.pages,
+    totalCourses: data?.pages[0].totalCourses,
+    fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status 
   }
+
 }
 
 export default useFetchCourses
