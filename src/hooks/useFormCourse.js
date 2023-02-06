@@ -66,7 +66,7 @@ const useFormCourse = () => {
         text: 'Course created successfully',
       })
 
-      router.push('/')
+      router.replace('/')
     } catch (error) {
       Swal.fire({
         icon: 'error',

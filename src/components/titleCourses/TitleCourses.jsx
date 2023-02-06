@@ -15,7 +15,7 @@ const TitleCourses = ({ title = 'Courses Page'}) => {
       {auth.isLogged && auth.user.role === 'admin' &&
         <Grid item xs={4} style={{alignSelf: 'center', textAlign: 'end'}}>
           <Button 
-            onClick={() => router.push('/course/form')} 
+            onClick={() => router.replace('/courses/form')} 
             variant="outlined" color="primary"
           >
             + Add Course

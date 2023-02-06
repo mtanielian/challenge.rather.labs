@@ -1,4 +1,4 @@
-export const menuItems =  [ 
-  {name: 'Courses', path: '/'},
-  {name: 'Students', path: '/students'},
+export const menuItems = [
+  { name: 'Courses', path: '/', role: '' },
+  { name: 'User', path: '/user', role: 'admin' },
 ]

@@ -5,7 +5,20 @@ export const login = async ({ email, password }) => {
   return data
 }
 
-export const getUsersByRole = async (role) => {
-  const {data} = await api.get(`/users/${role}`)
+export const getUserByProp = async ({ prop, value }) => {
+  // Simulate a delay
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  const {data} = await api.post('/user/search', { prop, value })
+  return data
+}
+
+export const createUser = async (user) => {
+  const {data} = await api.post('/user', user)
+  return data
+}
+
+export const deleteUser = async (id) => {
+  const {data} = await api.delete(`/user/${id}`)
   return data
 }

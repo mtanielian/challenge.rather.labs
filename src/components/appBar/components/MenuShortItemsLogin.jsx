@@ -11,13 +11,13 @@ const MenuShortItemsLogin = () => {
     <>
       <Divider />
       {!auth.isLogged && 
-        <MenuItem onClick={() => router.push('/auth/login')}>
+        <MenuItem onClick={() => router.replace('/auth/login')}>
           <Typography textAlign="center">Login</Typography>
         </MenuItem>
       }
       {auth.isLogged &&
         <>
-          <MenuItem onClick={() => router.push('/profile')}>
+          <MenuItem onClick={() => router.replace('/profile')}>
             <Typography textAlign="center">Profile</Typography>
           </MenuItem>
           <MenuItem onClick={logout}>

@@ -15,7 +15,7 @@ const MenuLarge = () => {
         <Button
           key={name}
           sx={{ color: 'white', display: 'block' }}
-          onClick={() => router.push(path)}
+          onClick={() => router.replace(path)}
         >
           {name}                  
         </Button>

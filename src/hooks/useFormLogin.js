@@ -16,7 +16,7 @@ const useFormLogin = () => {
       const {token} = await login({email, password})
       if (token) {
         setLogged(token)
-        router.push('/')
+        router.replace('/')
       }
     } catch (error) {
       Swal.fire({

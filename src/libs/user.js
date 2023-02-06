@@ -1,8 +1,7 @@
-import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import { connectDB, disconnectDB } from '../database/conn'
-import { serializeResponse } from '../utils/serializeResponse'
 import UserModel from '../database/models/UserModel'
+import { serializeResponse } from '../utils/serializeResponse'
 
 export const loginUser = async ({ email, password }) => {
   try {
@@ -24,18 +23,20 @@ export const loginUser = async ({ email, password }) => {
   }
 }
 
-
-export const registerUser = async ({ email, password, name, lastName, role = 'student', birthDate, gender }) => {
+export const createUser = async ({ 
+  name, lastName, birthDate, gender, 
+  email, password, role = 'student'
+}) => {
   try {
     await connectDB()
     const user = new UserModel({ 
       name, 
       lastName,
       birthDate,
-      email,
-      role,
       gender,
-      password: bcrypt.hashSync(password)
+      email,
+      password: bcrypt.hashSync(password),
+      role
     })
 
     await user.save()
@@ -44,43 +45,52 @@ export const registerUser = async ({ email, password, name, lastName, role = 'st
     return serializeResponse(user)
 
   } catch (error) {
-    console.log('Error registerUser: ', error)
+    console.log('Error createUser: ', error)
     await disconnectDB()
     throw Error('Internal error')
   }
 }
 
-
-export const getUsersByRole = async (role) => {
+export const getUsersByProp = async ({ prop, value }) => {
   try {
     await connectDB()
-    const users = await UserModel.find({role}).select('-password').lean()
+    const users = await UserModel.find({ [prop]: value }).select('-password').lean()
     await disconnectDB()
-
+    
     return serializeResponse(users)
 
   } catch (error) {
-    console.log('Error getUsersByRole: ', error)
+    console.log(`Error getUsersByProp - ${prop}: `, error)
     await disconnectDB()
     return null
   }
 }
 
-
-export const updateRoleUser = async ({ userId, role }) => {
-  if (!mongoose.isObjectIdOrHexString(userId)) {
-    throw new Error('Invalid userId')
-  }
-
+export const getUserById = async (_id) => {
   try {
     await connectDB()
-    await UserModel.findByIdAndUpdate({ _id: userId }, {
-      $addToSet: { roles: role } 
-    })
+    const users = await UserModel.findById(_id).select('-password').lean()
     await disconnectDB()
 
+    return serializeResponse(users)
+
   } catch (error) {
-    console.log('Error findByIdAndUpdate: ', error)
+    console.log('Error getUserById: ', error)
+    await disconnectDB()
+    return null
+  }
+}
+
+export const deleteUserById = async (_id) => {
+  try {
+    await connectDB()
+    const user = await UserModel.findByIdAndDelete(_id)
+    await disconnectDB()
+
+    return serializeResponse(user)
+
+  } catch (error) {
+    console.log('Error getUsersByRole: ', error)
     await disconnectDB()
     return null
   }

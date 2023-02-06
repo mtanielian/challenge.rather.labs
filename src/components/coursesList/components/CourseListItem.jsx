@@ -39,7 +39,7 @@ const CourseListItem = ({ course }) => {
       <CardActions>
         <Button 
           size="small"
-          onClick={() => router.push(`/courses/${_id}`)}
+          onClick={() => router.replace(`/courses/${_id}`)}
         >Details</Button>
       </CardActions>
     </Card>

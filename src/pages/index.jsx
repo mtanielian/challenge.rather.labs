@@ -1,6 +1,6 @@
 import MainLayout from '../layouts/MainLayout'
 import TitleCourses from '../components/titleCourses/TitleCourses'
-import SearchCourse from '../components/searchCourse/SearchCourse'
+import SearchCoursesBar from '../components/searchCoursesBar/SearchCoursesBar'
 import CoursesList from '../components/coursesList/CoursesList'
 
   
@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <MainLayout>
       <TitleCourses />
-      <SearchCourse />
+      <SearchCoursesBar />
       <CoursesList /> 
     </MainLayout>
   )

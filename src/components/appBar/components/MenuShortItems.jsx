@@ -9,7 +9,7 @@ const MenuShortItems = () => {
   return (
     <>
       {menuItems.map(({name, path}) => (
-        <MenuItem key={name} onClick={() => router.push(path)}>
+        <MenuItem key={name} onClick={() => router.replace(path)}>
           <Typography textAlign="center">{name}</Typography>
         </MenuItem>
       ))}

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import useFormCourse from '../../hooks/useFormCourse'
 import { 
   Box, Button, FormControl, Grid, InputAdornment, InputLabel, 
@@ -5,6 +6,7 @@ import {
 } from '@mui/material'
 
 const FormCourse = () => {
+  const router = useRouter()
   const {
     ratingLabels, teachers, level, hoverLevel, discountedPrice,
     isSaving, register, errors, setLevel, setHoverLevel,
@@ -148,16 +150,24 @@ const FormCourse = () => {
               {hoverLevel > -1 ? ratingLabels[hoverLevel] : ratingLabels[level]}
             </Box>
           </Grid>
-          <Grid item xs={12}>
-            <Button 
-              disabled={isSaving} variant="contained" 
-              color="primary" type="submit"
-            >
-            SAVE
-            </Button>
-          </Grid>
         </Grid>
-      </Paper>
+      </Paper>      
+      <Grid item xs={12} style={{ marginTop: 20, maxWidth: 730, textAlign: 'right' }}>
+        <Button 
+          disabled={isSaving} variant="contained" 
+          color="primary" type="submit"
+          style={{ marginRight: 10 }}
+        >
+            SAVE
+        </Button>
+        <Button 
+          variant="contained" 
+          color="error"
+          onClick={() => router.replace('/')}
+        >
+            CANCEL
+        </Button>
+      </Grid>
     </form>    
   )
 }

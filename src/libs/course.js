@@ -19,7 +19,7 @@ export const createCourse = async (course) => {
   }
 }
 
-export const getCourses = async (limit = 10, page = 1) => {
+export const getCourses = async ({ limit = 10, page = 1 }) => {
   try {
     await connectDB()
     const totalCourses = await CourseModel.countDocuments()
@@ -57,6 +57,25 @@ export const searchCourses = async (term) => {
 
   } catch (error) {
     console.log('Error searchCourses: ', error)
+    await disconnectDB()
+    throw Error('Internal error')
+  }
+}
+
+
+export const getCourseById  = async (id) => {
+  try {
+    await connectDB()
+    const course = await CourseModel
+      .findById(id)
+      .populate('teacher')
+      .lean()
+    await disconnectDB()
+
+    return { course: serializeResponse(course) }
+
+  } catch (error) {
+    console.log('Error getCourseById: ', error)
     await disconnectDB()
     throw Error('Internal error')
   }

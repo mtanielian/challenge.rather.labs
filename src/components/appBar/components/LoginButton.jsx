@@ -23,7 +23,7 @@ const LoginButton = () => {
       <Button 
         variant='contained' 
         sx={{width: '150px' }}
-        onClick={() => router.push('/auth/login')} 
+        onClick={() => router.replace('/auth/login')} 
       >Login</Button>
       }
       {auth.isLogged && 
@@ -53,7 +53,7 @@ const LoginButton = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => router.push('/profile')}>Profile</MenuItem>
+          <MenuItem onClick={() => router.replace('/profile')}>Profile</MenuItem>
           <MenuItem onClick={logout}>Logout</MenuItem>
         </Menu>
       </>
