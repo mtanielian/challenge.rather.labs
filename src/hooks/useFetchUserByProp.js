@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-import { getUserByProp, deleteUser } from '../services/user.services'
+import { getUsersByProp, deleteUser } from '../services/user.services'
 import { useContext, useEffect, useState } from 'react'
 import { UsersContext } from '../contexts/UsersContext'
 
@@ -12,8 +12,8 @@ const useFetchUserByProp = () => {
   const getUser = async () => {
     try {
       setIsLoading(true)
-      const data = await getUserByProp({ prop, value })
-      setUser(data.user)
+      const data = await getUsersByProp({ prop, value })
+      setUser(data.users[0])
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)

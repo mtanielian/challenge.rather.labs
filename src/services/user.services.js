@@ -5,7 +5,8 @@ export const login = async ({ email, password }) => {
   return data
 }
 
-export const getUserByProp = async ({ prop, value }) => {
+export const getUsersByProp = async ({ prop, value }) => {
+  console.log('getUsersByProp', prop, value)
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 1000))
 

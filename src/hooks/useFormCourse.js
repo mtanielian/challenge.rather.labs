@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import Swal from 'sweetalert2'
-import { getUsersByRole } from '../services/user.services'
+import { getUsersByProp } from '../services/user.services'
 import { ratingLabels } from '../utils/ratingLabels'
 import { createCourse } from '../services/course.services'
+import * as yup from 'yup'
+import Swal from 'sweetalert2'
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -45,7 +45,8 @@ const useFormCourse = () => {
   
   const loadTeachers = async () => {
     try {
-      const { users } = await getUsersByRole('teacher')
+      const { users } = await getUsersByProp({ prop: 'role', value: 'teacher' })
+      console.log(await getUsersByProp({ prop: 'role', value: 'teacher' }))
       setTeachers(users)
     } catch (error) {
       console.log(error)

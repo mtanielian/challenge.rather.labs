@@ -5,12 +5,12 @@ import { Box, Button, Divider, Typography } from '@mui/material'
 const SearchUserResult = () => {
   const router = useRouter()
   const { user, isLoading, removeUser } = useFetchUserByProp()
-
+  
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {isLoading && <Typography variant='subtitle1'>Loading...</Typography>}
-      {!isLoading && user && Object.keys(user).length === 0 && <Typography variant='subtitle1'>No user found</Typography>}
-      {!isLoading && user && Object.keys(user).length > 0 &&  (
+      {!isLoading && !user && <Typography variant='subtitle1'>User not found</Typography>}
+      {!isLoading && user &&  (
         <div>
           <Typography variant='title'>{user.name} {user.lastName} ({user.role})</Typography>
           <Typography variant='subtitle1'>{user.email}</Typography>

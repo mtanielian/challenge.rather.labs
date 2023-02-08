@@ -1,11 +1,9 @@
-import { getCourseById } from '@/libs/course'
-import { Divider, Grid } from '@mui/material'
-import { useRouter } from 'next/router'
+import useValidateUser from '@/hooks/useValidateUser'
+import { getCourseById } from '../../libs/course'
 import MainLayout from '../../layouts/MainLayout'
+import { Divider, Grid } from '@mui/material'
 
-const DetailsPage = () => {
-  const router = useRouter()
-  const { id } = router.query
+const DetailsPage = ({ course }) => {
   
   return (
     <MainLayout>
@@ -13,7 +11,8 @@ const DetailsPage = () => {
       <Divider />
       <Grid container>
         <Grid item xs={8}>
-          Course ID: {id}
+          Course:
+          <pre>{JSON.stringify(course, null, 2)}</pre>
         </Grid>
         <Grid item xs={4}>
           Alumnos
@@ -26,14 +25,31 @@ const DetailsPage = () => {
 export default DetailsPage
 
 export const getServerSideProps = async (ctx) => {
+  const { validationResponse } = useValidateUser(ctx.req, 'admin')
+  if (!validationResponse.success) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
   const { id } = ctx.params
-  const { course } = await getCourseById(ctx.params.id)
-  console.log(course)
+  const { course } = await getCourseById(id)
+  if (!course) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
 
 
   return {
     props: {
-      
+      course
     }
   }
 }

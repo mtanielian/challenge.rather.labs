@@ -18,6 +18,6 @@ const retrieveUserByTerm = async (req, res) => {
   }
   
   const { prop, value } = req.body
-  const data = await getUsersByProp({ prop, value })
-  return res.status(200).json({ user: data[0] ?? {} })
+  const users = await getUsersByProp({ prop, value })
+  return res.status(200).json({ users })
 }

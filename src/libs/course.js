@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import { connectDB, disconnectDB } from '../database/conn'
 import CourseModel from '../database/models/CourseModel'
 import { serializeResponse } from '../utils/serializeResponse'
@@ -64,6 +65,12 @@ export const searchCourses = async (term) => {
 
 
 export const getCourseById  = async (id) => {
+  const ObjectId = mongoose.Types.ObjectId
+  const isValidObjectId = ObjectId.isValid(id)
+  if (!isValidObjectId) {
+    return { course: null }
+  }
+
   try {
     await connectDB()
     const course = await CourseModel
@@ -71,11 +78,10 @@ export const getCourseById  = async (id) => {
       .populate('teacher')
       .lean()
     await disconnectDB()
-
     return { course: serializeResponse(course) }
 
   } catch (error) {
-    console.log('Error getCourseById: ', error)
+    console.log('Error getCourseByIdxx: ', error)
     await disconnectDB()
     throw Error('Internal error')
   }
