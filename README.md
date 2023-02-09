@@ -1,4 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Replace .env.template to .env 
+Change variable MONGO_URL for your mongo database
 
 ## Getting Started
 
