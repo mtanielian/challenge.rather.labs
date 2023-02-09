@@ -30,7 +30,7 @@ export const getCourses = async ({ limit = 10, page = 1 }) => {
       .limit(limit)
       .lean()
     await disconnectDB()
-
+    
     return {
       courses: serializeResponse(courses),
       totalCourses,
@@ -81,7 +81,7 @@ export const getCourseById  = async (id) => {
     return { course: serializeResponse(course) }
 
   } catch (error) {
-    console.log('Error getCourseByIdxx: ', error)
+    console.log('Error getCourseById: ', error)
     await disconnectDB()
     throw Error('Internal error')
   }

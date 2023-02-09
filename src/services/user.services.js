@@ -8,7 +8,7 @@ export const login = async ({ email, password }) => {
 export const getUsersByProp = async ({ prop, value }) => {
   console.log('getUsersByProp', prop, value)
   // Simulate a delay
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  // await new Promise((resolve) => setTimeout(resolve, 1000))
 
   const {data} = await api.post('/user/search', { prop, value })
   return data
