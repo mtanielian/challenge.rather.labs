@@ -25,16 +25,6 @@ const DetailsPage = ({ course }) => {
 export default DetailsPage
 
 export const getServerSideProps = async (ctx) => {
-  const { validationResponse } = useValidateUser(ctx.req, 'admin')
-  if (!validationResponse.success) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
-  }
-
   const { id } = ctx.params
   const { course } = await getCourseById(id)
   if (!course) {
